@@ -24,7 +24,7 @@ public class DBuuid {
         }
         catch (SQLException e)
         {
-            McnsaNotes.log.error("Error getting uuid: " + e.getMessage());
+            McnsaNotes.log.error("Database Error getting uuid: " + e.getMessage());
         }
         return null;
     }

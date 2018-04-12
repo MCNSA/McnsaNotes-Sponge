@@ -5,18 +5,13 @@ import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
-import org.spongepowered.api.text.Text;
 import uk.co.maboughey.mcnsanotes.McnsaNotes;
 import uk.co.maboughey.mcnsanotes.database.DBNotes;
-import uk.co.maboughey.mcnsanotes.type.Note;
 import uk.co.maboughey.mcnsanotes.utils.Messages;
 
-import java.util.LinkedList;
-
-public class NotesCommand implements CommandExecutor {
+public class DeleteCommand implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-        //Check if command is enabled or not
         if (!McnsaNotes.isEnabled) {
             //It isnt, tell the user
             Messages.sendMessage(src,"&4Notes plugin is currently disabled. Please check config file and reload");
@@ -24,26 +19,19 @@ public class NotesCommand implements CommandExecutor {
             return CommandResult.success();
         }
         else {
-            int page = 1;
-            //Plugin is still enabled. Process command
+            //Run the command
 
-            //Get the information needed
-            String target = (String) args.getOne("player").get();
+            //Get the id
+            int id = args.<Integer>getOne("id").get();
 
-            //get page number
-            if (args.hasAny("page")) {
-                //Looking at a page
-                page = args.<Integer>getOne("page").get();
+            if (DBNotes.deleteNote(id)){
+                Messages.sendMessage(src, "Note Deleted");
             }
-
-            //Get notes from database
-            LinkedList<Note> notes = DBNotes.getNotes(target);
-
-            //Display note
-            Messages.sendMessage(src,
-                    "&6Viewing page &F" + page + "&6 of &F" + target + "'s&6 notes");
-            //end of command processing
-            return CommandResult.success();
+            else {
+                Messages.sendMessage(src, "Error deleting note (Are you sure you put in the correct id?)");
+            }
         }
+
+        return CommandResult.success();
     }
 }

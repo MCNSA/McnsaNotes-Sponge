@@ -6,13 +6,14 @@ import uk.co.maboughey.mcnsanotes.type.Note;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class DBNotes {
-    private PreparedStatement preparedStatement;
-    private Connection connect;
+    private static PreparedStatement preparedStatement;
+    private static Connection connect;
 
-    public boolean writeNote(Note note) {
+    public static boolean writeNote(Note note) {
         boolean ret = true;
         try {
             // load the database
@@ -40,7 +41,7 @@ public class DBNotes {
         return ret;
     }
 
-    public LinkedList<Note> getNotes(String target) {
+    public static LinkedList<Note> getNotes(String target) {
         // begin storing the results
         LinkedList<Note> notes = new LinkedList<Note>();
 
@@ -80,5 +81,22 @@ public class DBNotes {
             DatabaseManager.close();
         }
         return notes;
+    }
+
+    public static boolean deleteNote(int id) {
+        try {
+            Connection connect = DatabaseManager.getConnection();
+            PreparedStatement statement = connect.prepareStatement("DELETE FROM notes WHERE id=?");
+            statement.setInt(1, id);
+
+            if (statement.executeUpdate() > 0)
+                return true;
+            else
+                return false;
+        }
+        catch (SQLException e) {
+            McnsaNotes.log.error("Database Error when deleting note: " + e.getLocalizedMessage());
+            return false;
+        }
     }
 }
