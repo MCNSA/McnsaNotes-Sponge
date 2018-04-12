@@ -41,20 +41,29 @@ public class DBNotes {
         return ret;
     }
 
-    public static LinkedList<Note> getNotes(String target) {
+    public static LinkedList<Note> getNotes(String target, int page) {
         // begin storing the results
         LinkedList<Note> notes = new LinkedList<Note>();
 
         //Get uuid for target
         String UUID = DBuuid.getUUID(target);
 
+        //Work out our limits
+        if (page < 1)
+            page = 1;
+
+        int limit = page * 5;
+        int offset = (page - 1) * 5;
+
         try {
             // load the database
             DatabaseManager.connect();
 
             // get the results
-            PreparedStatement statement = connect.prepareStatement("SELECT * FROM notes WHERE uuid=?");
+            PreparedStatement statement = connect.prepareStatement("SELECT * FROM notes WHERE uuid=? ORDER BY id DESC LIMIT ?, ?");
             statement.setString(1, UUID);
+            statement.setInt(2, limit);
+            statement.setInt(3, offset);
             ResultSet results = statement.executeQuery();
 
             //Now we have the results, lets loop through and create notes
@@ -98,5 +107,24 @@ public class DBNotes {
             McnsaNotes.log.error("Database Error when deleting note: " + e.getLocalizedMessage());
             return false;
         }
+    }
+    public static int getNotesCount(String uuid) {
+        int count = 0;
+        try {
+            //Get connection
+            Connection connect = DatabaseManager.getConnection();
+
+            //Build query
+            PreparedStatement statement = connect.prepareStatement("SELECT COUNT(id) FROM notes WHERE uuid=?");
+            statement.setString(1, uuid);
+
+            ResultSet results = statement.executeQuery();
+            if (results.next())
+                count = results.getInt("COUNT(id)");
+        }
+        catch (SQLException e) {
+            McnsaNotes.log.error("Database Error fetching notes count: "+e.getLocalizedMessage());
+        }
+        return count;
     }
 }
