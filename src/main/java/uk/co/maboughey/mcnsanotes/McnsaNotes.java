@@ -13,6 +13,7 @@ import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.plugin.PluginManager;
 import uk.co.maboughey.mcnsanotes.command.CommandManager;
 import uk.co.maboughey.mcnsanotes.database.DatabaseManager;
+import uk.co.maboughey.mcnsanotes.listeners.PlayerListener;
 import uk.co.maboughey.mcnsanotes.utils.Configuration;
 import uk.co.maboughey.mcnsanotes.utils.Log;
 
@@ -37,6 +38,7 @@ public class McnsaNotes {
     public static Log log;
     public static DatabaseManager DbManager;
 
+
     @Listener
     public void preInit(GamePreInitializationEvent event){
         log = new Log(logger);
@@ -52,6 +54,9 @@ public class McnsaNotes {
         log.info("Loading database");
         DbManager = new DatabaseManager();
         DbManager.tablesCreate();
+
+        log.info("Starting listeners");
+        Sponge.getEventManager().registerListeners(plugin, new PlayerListener());
 
     }
 

@@ -85,7 +85,17 @@ public class DatabaseManager {
                             "id int(6) NOT NULL AUTO_INCREMENT, "+
                             "uuid varchar(50) NOT NULL, "+
                             "name varchar(20) NOT NULL, "+
-                            "PRIMARY KEY (ID));"
+                            "PRIMARY KEY (id));"
+            );
+            preparedStatement.executeUpdate();
+
+            preparedStatement = connect.prepareStatement(
+                    "CREATE TABLE IF NOT EXISTS taggedPlayers (" +
+                            "id int(6) NOT NULL AUTO_INCREMENT," +
+                            "uuid varchar(50) NOT NULL," +
+                            "noter_uuid varchar(50)," +
+                            "reason TEXT NOT NULL," +
+                            "PRIMARY KEY (id))"
             );
             preparedStatement.executeUpdate();
         }
