@@ -1,0 +1,12 @@
+uk\co\maboughey\mcnsanotes\utils\Configuration.class
+uk\co\maboughey\mcnsanotes\McnsaNotes.class
+uk\co\maboughey\mcnsanotes\command\CommandManager.class
+uk\co\maboughey\mcnsanotes\database\DatabaseManager.class
+uk\co\maboughey\mcnsanotes\type\Stat.class
+uk\co\maboughey\mcnsanotes\utils\Log.class
+uk\co\maboughey\mcnsanotes\command\Stats.class
+uk\co\maboughey\mcnsanotes\command\NotesCommand.class
+mcmod.info
+uk\co\maboughey\mcnsanotes\command\ReloadCommand.class
+uk\co\maboughey\mcnsanotes\type\Note.class
+uk\co\maboughey\mcnsanotes\utils\Messages.class
