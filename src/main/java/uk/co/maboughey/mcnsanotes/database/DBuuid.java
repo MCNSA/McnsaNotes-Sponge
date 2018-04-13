@@ -122,6 +122,10 @@ public class DBuuid {
         return name;
     }
     public static String getNameFromUUID(String uuid) {
+        //Sanity check
+        if (uuid == null) {
+            return uuid;
+        }
         String name = null;
 
 
