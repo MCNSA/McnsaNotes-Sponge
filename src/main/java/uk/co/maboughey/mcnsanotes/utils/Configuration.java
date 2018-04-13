@@ -14,7 +14,6 @@ import java.nio.file.Paths;
 
 public class Configuration {
     private final Path configDir;
-    private final Asset asset;
     private Path configFile;
     private CommentedConfigurationNode configNode;
     private ConfigurationLoader<CommentedConfigurationNode> configLoader;
@@ -25,11 +24,10 @@ public class Configuration {
     public static String DBPassword;
     public static String ServerName;
 
-    public Configuration(Path confDir, Asset asset) {
+    public Configuration(Path confDir) {
         this.configDir = confDir;
         this.configFile = Paths.get(configDir+"/config.conf");
         configLoader = HoconConfigurationLoader.builder().setPath(configFile).build();
-        this.asset = asset;
 
         checkConfigDir();
         checkConfFile();

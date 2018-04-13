@@ -1,11 +1,9 @@
 package uk.co.maboughey.mcnsanotes.database;
 
 import uk.co.maboughey.mcnsanotes.McnsaNotes;
-import uk.co.maboughey.mcnsanotes.type.Note;
 import uk.co.maboughey.mcnsanotes.utils.Configuration;
 
 import java.sql.*;
-import java.util.LinkedList;
 import java.util.Properties;
 
 public class DatabaseManager {

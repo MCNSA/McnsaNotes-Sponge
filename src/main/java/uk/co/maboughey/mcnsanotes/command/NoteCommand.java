@@ -1,15 +1,11 @@
 package uk.co.maboughey.mcnsanotes.command;
 
-import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.entity.living.player.User;
-import org.spongepowered.api.profile.GameProfile;
-import org.spongepowered.api.service.user.UserStorageService;
 import uk.co.maboughey.mcnsanotes.database.DBNotes;
 import uk.co.maboughey.mcnsanotes.database.DBuuid;
 import uk.co.maboughey.mcnsanotes.type.Note;
@@ -17,8 +13,6 @@ import uk.co.maboughey.mcnsanotes.utils.Configuration;
 import uk.co.maboughey.mcnsanotes.utils.Messages;
 
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.Optional;
 import java.util.UUID;
 
 public class NoteCommand implements CommandExecutor {

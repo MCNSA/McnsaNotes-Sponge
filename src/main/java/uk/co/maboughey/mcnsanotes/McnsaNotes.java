@@ -3,14 +3,12 @@ package uk.co.maboughey.mcnsanotes;
 import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.asset.Asset;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
-import org.spongepowered.api.plugin.PluginManager;
 import uk.co.maboughey.mcnsanotes.command.CommandManager;
 import uk.co.maboughey.mcnsanotes.database.DatabaseManager;
 import uk.co.maboughey.mcnsanotes.listeners.PlayerListener;
@@ -43,8 +41,7 @@ public class McnsaNotes {
     public void preInit(GamePreInitializationEvent event){
         log = new Log(logger);
         logger.info("Loading Configuration");
-
-        PluginManager pluginManager = Sponge.getPluginManager();
+        config = new Configuration(configDir);
 
         log.info("Loading commands");
         CommandManager CommandManager = new CommandManager(plugin);

@@ -4,9 +4,7 @@ import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
 import org.spongepowered.api.event.filter.Getter;
-import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
-import uk.co.maboughey.mcnsanotes.McnsaNotes;
 import uk.co.maboughey.mcnsanotes.database.DBuuid;
 
 import java.util.Optional;
