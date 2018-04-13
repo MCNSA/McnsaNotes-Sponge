@@ -46,7 +46,8 @@ public class RecentNotesCommand implements CommandExecutor {
             if (notes.size() > 0){
                 for (int i = 0; i < notes.size(); i++) {
                     Note note = notes.get(i);
-                    Messages.sendMessage(src, "&6ID: &F"+note.id + " &6Server: &F"+note.server +" &6On: &F"+note.getNotee()+" &6By: &F"+note.getNoteTaker()+" &6Date: &F"+note.noteDate);
+                    Messages.sendMessage(src, "&6ID: &F"+note.id +" &6On: &F"+note.getNotee()+" &6By: &F"+note.getNoteTaker());
+                    Messages.sendMessage(src, "&6Server: &F"+note.server+" &6Date: &F"+note.noteDate);
                     Messages.sendMessage(src, "&6Note: &F"+note.note);
                 }
 
