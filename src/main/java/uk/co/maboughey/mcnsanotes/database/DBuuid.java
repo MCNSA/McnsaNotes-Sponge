@@ -11,21 +11,56 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class DBuuid {
-    public ResultSet getAllUuids() {
+    public static void getAllUuids() {
         Connection connection = DatabaseManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM knownUsernames");
             ResultSet results = statement.executeQuery();
-            return results;
+            while (results.next()) {
+                McnsaNotes.uuids.put(results.getInt("id"), results.getString("uuid"));
+                McnsaNotes.usernames.put(results.getInt("id"), results.getString("name"));
+            }
 
         }
         catch (SQLException e){
 
+        }
+    }
+    public static List<String> getNamesLocal(String name) {
+        List<String> results = new ArrayList<String>();
+        List<Integer> sortedKeys = new ArrayList(McnsaNotes.usernames.keySet());
+        Collections.reverse(sortedKeys);
+
+       for (int i=0; i<sortedKeys.size(); i++) {
+           int key = sortedKeys.get(i);
+           if (McnsaNotes.usernames.get(key).toLowerCase().startsWith(name.toLowerCase())) {
+               results.add(McnsaNotes.usernames.get(key));
+           }
+       }
+        return results;
+    }
+    public static String getuuidfromNameLocal(String name) {
+        List<Integer> sortedKeys = new ArrayList(McnsaNotes.usernames.keySet());
+        Collections.reverse(sortedKeys);
+        for (int i=0; i<sortedKeys.size(); i++) {
+            int key = sortedKeys.get(i);
+            if (McnsaNotes.usernames.get(key).toLowerCase().contains(name.toLowerCase())) {
+                return McnsaNotes.uuids.get(key);
+            }
+        }
+        return null;
+    }
+    public static String getNamefromUuidLocal(String uuid) {
+        List<Integer> sortedKeys = new ArrayList(McnsaNotes.uuids.keySet());
+        Collections.reverse(sortedKeys);
+        for (int i=0; i<sortedKeys.size(); i++) {
+            int key = sortedKeys.get(i);
+            if (McnsaNotes.uuids.get(key).contains(uuid)) {
+                return McnsaNotes.usernames.get(key);
+            }
         }
         return null;
     }
@@ -35,6 +70,13 @@ public class DBuuid {
         if (uuid !=null) {
             return uuid;
         }
+
+        //Try local copy of DB
+        String localUUID = getuuidfromNameLocal(player);
+        if (localUUID != null) {
+            return localUUID;
+        }
+
         Connection connect = DatabaseManager.getConnection();
         try
         {
@@ -59,6 +101,11 @@ public class DBuuid {
         if (user != null) {
             return user;
         }
+
+        String nameLocal = getNamefromUuidLocal(UUID);
+        if (nameLocal != null)
+            return nameLocal;
+
         String name = null;
         Connection connect = DatabaseManager.getConnection();
 

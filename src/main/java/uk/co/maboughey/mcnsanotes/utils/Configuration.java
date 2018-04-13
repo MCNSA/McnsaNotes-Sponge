@@ -3,8 +3,6 @@ package uk.co.maboughey.mcnsanotes.utils;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
-import org.spongepowered.api.asset.Asset;
-
 import uk.co.maboughey.mcnsanotes.McnsaNotes;
 
 import java.io.IOException;

@@ -44,7 +44,7 @@ public class NotesCommand implements CommandExecutor {
 
             //Display note
             Messages.sendMessage(src,
-                    "&6Viewing page &F" + page + "/"+ getNumPages(uuid) +"&6 of &F" + DBuuid.getNameFromUUID(uuid) + "'s&6 notes");
+                    "&6Viewing page &F" + page + "/"+ getNumPages(uuid) +"&6 of &F" + DBuuid.getUsername(uuid) + "'s&6 notes");
 
             //Check if there are notes
             if (notes.size() > 0){

@@ -10,13 +10,14 @@ import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 import uk.co.maboughey.mcnsanotes.command.CommandManager;
+import uk.co.maboughey.mcnsanotes.database.DBuuid;
 import uk.co.maboughey.mcnsanotes.database.DatabaseManager;
 import uk.co.maboughey.mcnsanotes.listeners.PlayerListener;
 import uk.co.maboughey.mcnsanotes.utils.Configuration;
 import uk.co.maboughey.mcnsanotes.utils.Log;
 
-
 import java.nio.file.Path;
+import java.util.HashMap;
 
 @Plugin(id = "mcnsanotes", name = "MCNSA Notes", version = "1.0-Sponge")
 public class McnsaNotes {
@@ -36,6 +37,9 @@ public class McnsaNotes {
     public static Log log;
     public static DatabaseManager DbManager;
 
+    public static HashMap<Integer, String> uuids;
+    public static HashMap<Integer, String> usernames;
+
 
     @Listener
     public void preInit(GamePreInitializationEvent event){
@@ -43,12 +47,20 @@ public class McnsaNotes {
         logger.info("Loading Configuration");
         config = new Configuration(configDir);
 
+        //Support for local copy of knownUsernames
+        uuids = new HashMap<Integer, String>();
+        usernames = new HashMap<Integer, String>();
+
         log.info("Loading commands");
         CommandManager CommandManager = new CommandManager(plugin);
 
         log.info("Loading database");
         DbManager = new DatabaseManager();
         DbManager.tablesCreate();
+
+        DBuuid.getAllUuids();
+
+
 
         log.info("Starting listeners");
         Sponge.getEventManager().registerListeners(plugin, new PlayerListener());
