@@ -24,6 +24,11 @@ public class NoteCommand implements CommandExecutor {
         //Get arguments
         String target = (String) args.getOne("player").get();
         Collection<String> noteString = args.getAll("note");
+
+        if (noteString.size() < 1) {
+            Messages.sendMessage(src, "&4Please add a note");
+            return CommandResult.success();
+        }
         String message = String.join(" ", noteString);
 
         //Get the note taker details
