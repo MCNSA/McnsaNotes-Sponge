@@ -85,17 +85,23 @@ public class DBuuid {
             ResultSet results = statement.executeQuery();
             if (results.next()) {
                 String result = results.getString("uuid");
-                return result;
+                if (result != null)
+                    return result;
             }
         }
         catch (SQLException e)
         {
             McnsaNotes.log.error("Database Error getting uuid: " + e.getMessage());
         }
-        return null;
+        return player;
     }
 
     public static String getUsername(String UUID) {
+
+        //Sanity check
+        if (UUID == null) {
+            return UUID;
+        }
 
         String user = getNameFromUUID(UUID);
         if (user != null) {
@@ -122,10 +128,7 @@ public class DBuuid {
         return name;
     }
     public static String getNameFromUUID(String uuid) {
-        //Sanity check
-        if (uuid == null) {
-            return uuid;
-        }
+
         String name = null;
 
 
