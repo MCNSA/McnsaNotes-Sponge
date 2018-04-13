@@ -17,6 +17,7 @@ public class CommandManager {
         notesCommand();
         deleteCommand();
         newNoteCommand();
+        recentNotesCommand();
     }
 
     public void reloadCommand() {
@@ -66,5 +67,17 @@ public class CommandManager {
                 .build();
 
         Sponge.getCommandManager().register(this.plugin, newNoteCommand, "note", "n");
+    }
+    public void recentNotesCommand() {
+        CommandSpec recentNotesCommand = CommandSpec.builder()
+                .description(Text.of("View all recent notes written"))
+                .permission("mcnsanotes.viewnotes")
+                .executor(new RecentNotesCommand())
+                .arguments(
+                        GenericArguments.optional(GenericArguments.integer(Text.of("page")))
+                )
+                .build();
+
+        Sponge.getCommandManager().register(this.plugin, recentNotesCommand, "recentnotes", "rn");
     }
 }

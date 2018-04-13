@@ -13,11 +13,13 @@ public class Note {
     public String server;
 
     public String getNoteTaker() {
-        return DBuuid.getNameFromUUID(noteTaker);
+        if (noteTaker == null || noteTaker.startsWith("console"))
+            return "Console";
+        return DBuuid.getUsername(noteTaker);
     }
 
     public String getNotee() {
-        return DBuuid.getNameFromUUID(notee);
+        return DBuuid.getUsername(notee);
     }
 
 }

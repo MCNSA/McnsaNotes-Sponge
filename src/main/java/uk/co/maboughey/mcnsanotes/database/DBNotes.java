@@ -119,4 +119,63 @@ public class DBNotes {
         }
         return count;
     }
+    public static LinkedList<Note> getRecentNotes(int page) {
+        // begin storing the results
+        LinkedList<Note> notes = new LinkedList<Note>();
+
+        //Work out our limits
+        if (page < 1)
+            page = 1;
+
+        int offset = (page - 1) * 5;
+        try {
+            // load the database
+            Connection connect = DatabaseManager.getConnection();
+
+            // get the results
+            PreparedStatement statement = connect.prepareStatement("SELECT * FROM notes ORDER BY id DESC LIMIT ?, 5");
+            statement.setInt(1, offset);
+            ResultSet results = statement.executeQuery();
+
+            //Now we have the results, lets loop through and create notes
+            while (results.next()) {
+                Note note = new Note();
+                note.id = results.getInt("id");
+                note.note = results.getString("note");
+                note.server = results.getString("server");
+                note.noteDate = results.getDate("date");
+
+                //Check if uuids are set
+                if (results.getString("uuid") != null)
+                    note.notee = results.getString("uuid");
+                if (results.getString("noter_uuid") != null)
+                    note.noteTaker = results.getString("noter_uuid");
+
+                notes.add(note);
+            }
+            DatabaseManager.close();
+        }
+        catch(Exception e) {
+            McnsaNotes.log.error("Database Error getting notes: "+e.getLocalizedMessage());
+        }
+        return notes;
+    }
+    public static int getNotesCount() {
+        int count = 0;
+        try {
+            //Get connection
+            Connection connect = DatabaseManager.getConnection();
+
+            //Build query
+            PreparedStatement statement = connect.prepareStatement("SELECT COUNT(id) FROM notes");
+
+            ResultSet results = statement.executeQuery();
+            if (results.next())
+                count = results.getInt("COUNT(id)");
+        }
+        catch (SQLException e) {
+            McnsaNotes.log.error("Database Error fetching notes count: "+e.getLocalizedMessage());
+        }
+        return count;
+    }
 }

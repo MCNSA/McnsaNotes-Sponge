@@ -44,10 +44,10 @@ public class DBuuid {
     public static String getUsername(String UUID) {
 
         String user = getNameFromUUID(UUID);
-        if (user !=null) {
+        if (user != null) {
             return user;
         }
-
+        String name = null;
         Connection connect = DatabaseManager.getConnection();
 
         try {
@@ -55,12 +55,14 @@ public class DBuuid {
             statement.setString(1, UUID);
             ResultSet results = statement.executeQuery();
             if (results.next()) {
-                return results.getString("name");
+                name = results.getString("name");
             }
+            connect.close();
         } catch (SQLException e) {
             McnsaNotes.log.error("Database Error getting name from UUID: "+e.getLocalizedMessage());
         }
-        return null;
+
+        return name;
     }
     public static String getNameFromUUID(String uuid) {
         String name = uuid;
@@ -116,6 +118,7 @@ public class DBuuid {
                 put.setString(2, player);
                 put.executeUpdate();
             }
+            connect.close();
         }
         catch (SQLException e) {
             McnsaNotes.log.error("Error adding uuid into database: "+e.getLocalizedMessage());

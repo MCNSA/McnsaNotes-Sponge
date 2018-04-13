@@ -1,5 +1,6 @@
 uk\co\maboughey\mcnsanotes\utils\Configuration.class
 uk\co\maboughey\mcnsanotes\database\DBNotes.class
+uk\co\maboughey\mcnsanotes\command\RecentNotesCommand.class
 uk\co\maboughey\mcnsanotes\McnsaNotes.class
 uk\co\maboughey\mcnsanotes\command\CommandManager.class
 uk\co\maboughey\mcnsanotes\database\DatabaseManager.class
