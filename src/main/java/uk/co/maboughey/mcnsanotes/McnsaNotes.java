@@ -45,8 +45,6 @@ public class McnsaNotes {
         logger.info("Loading Configuration");
 
         PluginManager pluginManager = Sponge.getPluginManager();
-        Asset asset = Sponge.getAssetManager().getAsset(plugin, "config.conf").get();
-        config = new Configuration(configDir, asset);
 
         log.info("Loading commands");
         CommandManager CommandManager = new CommandManager(plugin);
