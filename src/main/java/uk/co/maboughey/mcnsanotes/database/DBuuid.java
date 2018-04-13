@@ -16,6 +16,19 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class DBuuid {
+    public ResultSet getAllUuids() {
+        Connection connection = DatabaseManager.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM knownUsernames");
+            ResultSet results = statement.executeQuery();
+            return results;
+
+        }
+        catch (SQLException e){
+
+        }
+        return null;
+    }
     public static String getUUID(String player)
     {
         String uuid = getUUIDFromName(player);
@@ -26,7 +39,7 @@ public class DBuuid {
         try
         {
             PreparedStatement statement = connect.prepareStatement("SELECT uuid FROM knownUsernames WHERE name LIKE ? ORDER BY id DESC LIMIT 1");
-            statement.setString(1, "%" + player + "%");
+            statement.setString(1, player + "%");
             ResultSet results = statement.executeQuery();
             if (results.next()) {
                 String result = results.getString("uuid");

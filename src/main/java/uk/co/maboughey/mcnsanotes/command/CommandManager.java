@@ -5,6 +5,7 @@ import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.text.Text;
+import uk.co.maboughey.mcnsanotes.utils.PlayerNameArgument;
 
 public class CommandManager {
 
@@ -35,7 +36,7 @@ public class CommandManager {
                 .permission("mcnsanotes.viewnotes")
                 .executor(new NotesCommand())
                 .arguments(
-                        GenericArguments.onlyOne(GenericArguments.string(Text.of("player"))),
+                        GenericArguments.onlyOne(new PlayerNameArgument(Text.of("player"))),
                         GenericArguments.optional(GenericArguments.integer(Text.of("page")))
                 )
                 .build();
@@ -61,7 +62,7 @@ public class CommandManager {
                 .permission("mcnsanotes.note")
                 .executor(new NoteCommand())
                 .arguments(
-                        GenericArguments.onlyOne(GenericArguments.string(Text.of("player"))),
+                        GenericArguments.onlyOne(new PlayerNameArgument(Text.of("player"))),
                         GenericArguments.allOf(GenericArguments.string(Text.of("note")))
                 )
                 .build();

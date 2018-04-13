@@ -8,6 +8,7 @@ uk\co\maboughey\mcnsanotes\command\DeleteCommand.class
 uk\co\maboughey\mcnsanotes\database\DBuuid.class
 uk\co\maboughey\mcnsanotes\type\Stat.class
 uk\co\maboughey\mcnsanotes\utils\Log.class
+uk\co\maboughey\mcnsanotes\utils\PlayerNameArgument.class
 uk\co\maboughey\mcnsanotes\command\NotesCommand.class
 uk\co\maboughey\mcnsanotes\command\NoteCommand.class
 uk\co\maboughey\mcnsanotes\listeners\PlayerListener.class
