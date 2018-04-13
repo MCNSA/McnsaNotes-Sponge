@@ -50,7 +50,6 @@ public class DBNotes {
             page = 1;
 
         int offset = (page - 1) * 5;
-        McnsaNotes.log.info(String.valueOf(offset));
         try {
             // load the database
             Connection connect = DatabaseManager.getConnection();
@@ -59,7 +58,6 @@ public class DBNotes {
             PreparedStatement statement = connect.prepareStatement("SELECT * FROM notes WHERE uuid=? ORDER BY id DESC LIMIT ?, 5");
             statement.setString(1, UUID);
             statement.setInt(2, offset);
-            McnsaNotes.log.info(statement.toString());
             ResultSet results = statement.executeQuery();
 
             //Now we have the results, lets loop through and create notes

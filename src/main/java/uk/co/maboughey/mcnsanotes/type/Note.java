@@ -18,31 +18,11 @@ public class Note {
     public String server;
 
     public String getNoteTaker() {
-        return getNameFromUUID(noteTaker);
+        return DBuuid.getNameFromUUID(noteTaker);
     }
 
     public String getNotee() {
-        return getNameFromUUID(notee);
+        return DBuuid.getNameFromUUID(notee);
     }
 
-    public String getNameFromUUID(String uuid) {
-        if (uuid.startsWith("console"))
-            return "Console";
-        String name = null;
-
-        //Try getting user from server of players that have logged in before
-        UserStorageService uss = Sponge.getServiceManager().provideUnchecked(UserStorageService.class);
-        Optional<User> oUser = uss.get(UUID.fromString(uuid));
-        if (oUser.isPresent()) {
-            //Person is online
-            name = oUser.get().getName();
-        }
-        else {
-            //UUID not found.. look in db
-            name = DBuuid.getUsername(uuid);
-            if (name == null)
-                name = uuid;
-        }
-        return name;
-    }
 }

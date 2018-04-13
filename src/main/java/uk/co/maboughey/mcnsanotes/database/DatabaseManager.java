@@ -30,9 +30,6 @@ public class DatabaseManager {
 
             connect = DriverManager.getConnection(Configuration.getDatabaseString(), connProperties);
 
-            if (connect != null) {
-                McnsaNotes.log.info("Database Connected");
-            }
         }
         catch (Exception e){
         }
