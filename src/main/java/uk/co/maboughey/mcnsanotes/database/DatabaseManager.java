@@ -46,7 +46,7 @@ public class DatabaseManager {
             if(connect != null) connect.close();
         }
         catch(Exception e) {
-            McnsaNotes.log.error("Database exception durning close. Message was: "+e.getMessage());
+            McnsaNotes.log.error("Database exception during close. Message was: "+e.getMessage());
         }
     }
 

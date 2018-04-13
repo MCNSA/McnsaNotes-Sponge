@@ -22,7 +22,7 @@ public class DeleteCommand implements CommandExecutor {
             //Run the command
 
             //Get the id
-            int id = args.<Integer>getOne("id").get();
+            int id = Integer.parseInt(args.getOne("id").get().toString());
 
             if (DBNotes.deleteNote(id)){
                 Messages.sendMessage(src, "Note Deleted");

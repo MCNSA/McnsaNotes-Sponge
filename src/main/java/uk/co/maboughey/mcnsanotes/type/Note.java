@@ -26,6 +26,8 @@ public class Note {
     }
 
     public String getNameFromUUID(String uuid) {
+        if (uuid.startsWith("console"))
+            return "Console";
         String name = null;
 
         //Try getting user from server of players that have logged in before
@@ -39,7 +41,7 @@ public class Note {
             //UUID not found.. look in db
             name = DBuuid.getUsername(uuid);
             if (name == null)
-                name = "Console";
+                name = uuid;
         }
         return name;
     }

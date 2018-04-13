@@ -16,6 +16,8 @@ public class CommandManager {
 
         reloadCommand();
         notesCommand();
+        deleteCommand();
+        newNoteCommand();
     }
 
     public void reloadCommand() {
@@ -39,5 +41,31 @@ public class CommandManager {
                 .build();
 
         Sponge.getCommandManager().register(this.plugin, notesCommand, "notes", "viewnotes");
+    }
+    public void deleteCommand() {
+        CommandSpec deleteCommand = CommandSpec.builder()
+                .description(Text.of("Delete a player's note"))
+                .permission("mcnsanotes.delete")
+                .executor(new DeleteCommand())
+                .arguments(
+                        GenericArguments.onlyOne(GenericArguments.string(Text.of("id")))
+                )
+                .build();
+
+        Sponge.getCommandManager().register(this.plugin, deleteCommand, "deletenote", "nd");
+    }
+
+    public void newNoteCommand() {
+        CommandSpec newNoteCommand = CommandSpec.builder()
+                .description(Text.of("Write a note for a player"))
+                .permission("mcnsanotes.note")
+                .executor(new NoteCommand())
+                .arguments(
+                        GenericArguments.onlyOne(GenericArguments.string(Text.of("player"))),
+                        GenericArguments.allOf(GenericArguments.string(Text.of("note")))
+                )
+                .build();
+
+        Sponge.getCommandManager().register(this.plugin, newNoteCommand, "note", "n");
     }
 }

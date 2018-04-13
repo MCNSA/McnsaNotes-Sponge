@@ -23,7 +23,7 @@ public class Configuration {
     public static String DBName;
     public static String DBUser;
     public static String DBPassword;
-    public String ServerName;
+    public static String ServerName;
 
     public Configuration(Path confDir, Asset asset) {
         this.configDir = confDir;

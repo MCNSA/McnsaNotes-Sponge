@@ -52,7 +52,7 @@ public class NotesCommand implements CommandExecutor {
             if (notes.size() > 0){
                 for (int i = 0; i < notes.size(); i++) {
                     Note note = notes.get(i);
-                    Messages.sendMessage(src, "&6ID: &F"+note.id + "&6Server: &F"+note.server +" &6By: &F"+note.getNoteTaker()+" &6Date: &F"+note.noteDate);
+                    Messages.sendMessage(src, "&6ID: &F"+note.id + " &6Server: &F"+note.server +" &6By: &F"+note.getNoteTaker()+" &6Date: &F"+note.noteDate);
                     Messages.sendMessage(src, "&6Note: &F"+note.note);
                 }
 

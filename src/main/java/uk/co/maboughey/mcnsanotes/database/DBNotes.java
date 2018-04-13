@@ -10,17 +10,15 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class DBNotes {
-    private static PreparedStatement preparedStatement;
-    private static Connection connect;
 
     public static boolean writeNote(Note note) {
         boolean ret = true;
         try {
             // load the database
-            connect = DatabaseManager.getConnection();
+            Connection connect = DatabaseManager.getConnection();
 
             // write the statement
-            preparedStatement = connect.prepareStatement("insert into notes (id, note, server, date, uuid, noter_uuid) values (NULL, ?, ?, ?, ?, ?)");
+            PreparedStatement preparedStatement = connect.prepareStatement("insert into notes (id, note, server, date, uuid, noter_uuid) values (NULL, ?, ?, ?, ?, ?)");
             preparedStatement.setString(1, note.note);
             preparedStatement.setString(2, note.server);
             preparedStatement.setDate(3, new java.sql.Date((new java.util.Date()).getTime()));
@@ -30,13 +28,12 @@ public class DBNotes {
 
             // and execute it!
             preparedStatement.executeUpdate();
+            
+            DatabaseManager.close();
         }
         catch(Exception e) {
             McnsaNotes.log.error("Database error writing note: "+e.getMessage());
             ret = false;
-        }
-        finally {
-            DatabaseManager.close();
         }
         return ret;
     }
@@ -52,18 +49,17 @@ public class DBNotes {
         if (page < 1)
             page = 1;
 
-        int limit = page * 5;
         int offset = (page - 1) * 5;
-
+        McnsaNotes.log.info(String.valueOf(offset));
         try {
             // load the database
-            DatabaseManager.connect();
+            Connection connect = DatabaseManager.getConnection();
 
             // get the results
-            PreparedStatement statement = connect.prepareStatement("SELECT * FROM notes WHERE uuid=? ORDER BY id DESC LIMIT ?, ?");
+            PreparedStatement statement = connect.prepareStatement("SELECT * FROM notes WHERE uuid=? ORDER BY id DESC LIMIT ?, 5");
             statement.setString(1, UUID);
-            statement.setInt(2, limit);
-            statement.setInt(3, offset);
+            statement.setInt(2, offset);
+            McnsaNotes.log.info(statement.toString());
             ResultSet results = statement.executeQuery();
 
             //Now we have the results, lets loop through and create notes
@@ -82,12 +78,10 @@ public class DBNotes {
 
                 notes.add(note);
             }
+            DatabaseManager.close();
         }
         catch(Exception e) {
             McnsaNotes.log.error("Database Error getting notes: "+e.getLocalizedMessage());
-        }
-        finally {
-            DatabaseManager.close();
         }
         return notes;
     }
