@@ -7,6 +7,7 @@ import org.spongepowered.api.event.filter.Getter;
 import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 import uk.co.maboughey.mcnsanotes.McnsaNotes;
+import uk.co.maboughey.mcnsanotes.database.DBuuid;
 
 import java.util.Optional;
 
@@ -14,7 +15,13 @@ public class PlayerListener {
 
     @Listener
     public void onPlayerJoin(ClientConnectionEvent.Join event, @Getter("getTargetEntity") Player p){
+        //Get player details
         String uuid = p.getUniqueId().toString();
+        String name = p.getName();
+
+        //Add the details to the database
+        DBuuid.addUUID(uuid, name);
+
         //TODO: Stats Handling
         //TODO: Tag Handling
     }

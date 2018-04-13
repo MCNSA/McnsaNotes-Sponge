@@ -98,4 +98,27 @@ public class DBuuid {
         }
         return null;
     }
+    public static void addUUID(String uuid, String player) {
+        try {
+            //Get the connection
+            Connection connect = DatabaseManager.getConnection();
+
+            //Check if uuid and name relationship is in the database
+            PreparedStatement statement = connect.prepareStatement("SELECT * FROM knownUsernames WHERE uuid=? AND name=?");
+            statement.setString(1, uuid);
+            statement.setString(2, player);
+            ResultSet results = statement.executeQuery();
+
+            if (!results.next()) {
+                //Not in DB, Lets add it
+                PreparedStatement put = connect.prepareStatement("INSERT INTO knownUsernames (uuid, name) VALUES (?,?)");
+                put.setString(1, uuid);
+                put.setString(2, player);
+                put.executeUpdate();
+            }
+        }
+        catch (SQLException e) {
+            McnsaNotes.log.error("Error adding uuid into database: "+e.getLocalizedMessage());
+        }
+    }
 }
