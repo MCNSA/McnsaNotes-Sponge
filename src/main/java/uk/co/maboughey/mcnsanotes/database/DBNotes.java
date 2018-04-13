@@ -28,8 +28,7 @@ public class DBNotes {
 
             // and execute it!
             preparedStatement.executeUpdate();
-            
-            DatabaseManager.close();
+
         }
         catch(Exception e) {
             McnsaNotes.log.error("Database error writing note: "+e.getMessage());
@@ -76,7 +75,6 @@ public class DBNotes {
 
                 notes.add(note);
             }
-            DatabaseManager.close();
         }
         catch(Exception e) {
             McnsaNotes.log.error("Database Error getting notes: "+e.getLocalizedMessage());
@@ -153,7 +151,6 @@ public class DBNotes {
 
                 notes.add(note);
             }
-            DatabaseManager.close();
         }
         catch(Exception e) {
             McnsaNotes.log.error("Database Error getting notes: "+e.getLocalizedMessage());

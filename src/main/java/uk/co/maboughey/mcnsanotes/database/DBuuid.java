@@ -30,7 +30,6 @@ public class DBuuid {
             ResultSet results = statement.executeQuery();
             if (results.next()) {
                 String result = results.getString("uuid");
-                DatabaseManager.close();
                 return result;
             }
         }
@@ -57,15 +56,13 @@ public class DBuuid {
             if (results.next()) {
                 name = results.getString("name");
             }
-            connect.close();
         } catch (SQLException e) {
             McnsaNotes.log.error("Database Error getting name from UUID: "+e.getLocalizedMessage());
         }
-
         return name;
     }
     public static String getNameFromUUID(String uuid) {
-        String name = uuid;
+        String name = null;
 
 
         //Try getting user from server of players that have logged in before
@@ -118,7 +115,6 @@ public class DBuuid {
                 put.setString(2, player);
                 put.executeUpdate();
             }
-            connect.close();
         }
         catch (SQLException e) {
             McnsaNotes.log.error("Error adding uuid into database: "+e.getLocalizedMessage());

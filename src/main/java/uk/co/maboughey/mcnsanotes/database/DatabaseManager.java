@@ -13,7 +13,8 @@ public class DatabaseManager {
     private static ResultSet resultSet = null;
 
     public static Connection getConnection() {
-        connect();
+        if (connect == null)
+            connect();
         return connect;
     }
 
@@ -27,9 +28,11 @@ public class DatabaseManager {
             connProperties.put("maxReconnects","4");
 
             connect = DriverManager.getConnection(Configuration.getDatabaseString(), connProperties);
+            McnsaNotes.log.info("Connection to Database Established");
 
         }
         catch (Exception e){
+            connect = null;
         }
     }
 
@@ -97,9 +100,6 @@ public class DatabaseManager {
         catch(Exception e) {
             McnsaNotes.log.error("Database Exception, Disabling plugin. Message: "+e.getLocalizedMessage());
             McnsaNotes.isEnabled = false;
-        }
-        finally {
-            close();
         }
     }
 
