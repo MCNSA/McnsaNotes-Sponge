@@ -73,7 +73,7 @@ public class DatabaseManager {
                             "blocksplaced bigint(10) NOT NULL, " +
                             "blocksbroken bigint(10) NOT NULL, " +
                             "numdeaths bigint(10) NOT NULL, " +
-                            "nummkicks bigint(10) NOT NULL, " +
+                            "numkicks bigint(10) NOT NULL, " +
                             "modreqs bigint(10) NOT NULL, " +
                             "logins bigint(10) NOT NULL);");
             preparedStatement.executeUpdate();

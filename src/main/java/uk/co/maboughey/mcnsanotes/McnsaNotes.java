@@ -15,6 +15,7 @@ import uk.co.maboughey.mcnsanotes.database.DatabaseManager;
 import uk.co.maboughey.mcnsanotes.listeners.PlayerListener;
 import uk.co.maboughey.mcnsanotes.utils.Configuration;
 import uk.co.maboughey.mcnsanotes.utils.Log;
+import uk.co.maboughey.mcnsanotes.utils.StatsManager;
 
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -36,6 +37,7 @@ public class McnsaNotes {
     public static Configuration config;
     public static Log log;
     public static DatabaseManager DbManager;
+    public static StatsManager StatsManager;
 
     public static HashMap<Integer, String> uuids;
     public static HashMap<Integer, String> usernames;
@@ -59,6 +61,9 @@ public class McnsaNotes {
         DbManager.tablesCreate();
 
         DBuuid.getAllUuids();
+
+        //Stats
+        StatsManager = new StatsManager();
 
 
 

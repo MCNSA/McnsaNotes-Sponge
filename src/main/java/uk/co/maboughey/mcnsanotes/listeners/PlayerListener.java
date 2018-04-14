@@ -5,7 +5,10 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
 import org.spongepowered.api.event.filter.Getter;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
+import uk.co.maboughey.mcnsanotes.McnsaNotes;
+import uk.co.maboughey.mcnsanotes.database.DBStats;
 import uk.co.maboughey.mcnsanotes.database.DBuuid;
+import uk.co.maboughey.mcnsanotes.type.Stat;
 
 import java.util.Optional;
 
@@ -20,14 +23,23 @@ public class PlayerListener {
         //Add the details to the database
         DBuuid.addUUID(uuid, name);
 
-        //TODO: Stats Handling
+        //get player stats
+        Stat stat = DBStats.getStat(uuid);
+        if (stat == null) {
+            McnsaNotes.log.info("Creating new stat");
+            stat = new Stat(uuid);
+            DBStats.saveNewStat(stat);
+        }
+        McnsaNotes.StatsManager.addStat(stat);
+
         //TODO: Tag Handling
     }
 
     @Listener
     public void onPlayerQuit(ClientConnectionEvent.Disconnect event) {
         String uuid = event.getTargetEntity().getUniqueId().toString();
-        //TODO: Stats handling
+        McnsaNotes.StatsManager.removeStat(uuid);
+
     }
 
     @Listener
@@ -35,7 +47,8 @@ public class PlayerListener {
         Optional<Player> optPlayer = event.getCause().first(Player.class);
         if (optPlayer.isPresent() && optPlayer.get().isOnline()) {
             String uuid = optPlayer.get().getUniqueId().toString();
-            //TODO: Stats Handling
+            McnsaNotes.StatsManager.getStat(uuid).changed = true;
+            McnsaNotes.StatsManager.getStat(uuid).blocksBroken += 1;
         }
     }
 }
