@@ -11,6 +11,7 @@ uk\co\maboughey\mcnsanotes\command\StatsCommand.class
 uk\co\maboughey\mcnsanotes\utils\Log.class
 uk\co\maboughey\mcnsanotes\utils\StatsManager.class
 uk\co\maboughey\mcnsanotes\database\DBStats.class
+uk\co\maboughey\mcnsanotes\McnsaNotes$1.class
 uk\co\maboughey\mcnsanotes\utils\PlayerNameArgument.class
 uk\co\maboughey\mcnsanotes\command\NotesCommand.class
 uk\co\maboughey\mcnsanotes\command\NoteCommand.class

@@ -73,12 +73,11 @@ public class DBStats {
     public static void saveNewStat(Stat stat) {
         try {
             Connection connection = DatabaseManager.getConnection();
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO "+Configuration.ServerName+"_stats (timeonserver, blocksplaced, blocksbroken, numdeaths, numkicks, modreqs, uuid, logins) VALUES (0,0,0,0,0,0,?,0)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO " + Configuration.ServerName + "_stats (timeonserver, blocksplaced, blocksbroken, numdeaths, numkicks, modreqs, uuid, logins) VALUES (0,0,0,0,0,0,?,0)");
             statement.setString(1, stat.uuid);
             statement.executeUpdate();
-        }
-        catch (SQLException e) {
-            McnsaNotes.log.error("Database error saving new stat: "+e.getMessage());
+        } catch (SQLException e) {
+            McnsaNotes.log.error("Database error saving new stat: " + e.getMessage());
         }
     }
 }

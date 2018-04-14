@@ -35,10 +35,11 @@ public class StatsManager {
     public void saveChanged() {
         for (int i = 0; i < stats.size(); i++) {
             if (stats.get(i).changed) {
+                //update time played
+                stats.get(i).timeOnServer += System.currentTimeMillis() - stats.get(i).loginTime;
                 DBStats.saveStat(stats.get(i));
                 stats.get(i).changed = false;
             }
         }
     }
-
 }

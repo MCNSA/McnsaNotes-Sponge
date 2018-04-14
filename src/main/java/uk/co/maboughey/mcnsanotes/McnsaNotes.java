@@ -9,6 +9,7 @@ import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.scheduler.Task;
 import uk.co.maboughey.mcnsanotes.command.CommandManager;
 import uk.co.maboughey.mcnsanotes.database.DBuuid;
 import uk.co.maboughey.mcnsanotes.database.DatabaseManager;
@@ -19,6 +20,7 @@ import uk.co.maboughey.mcnsanotes.utils.StatsManager;
 
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 @Plugin(id = "mcnsanotes", name = "MCNSA Notes", version = "1.0-Sponge")
 public class McnsaNotes {
@@ -70,6 +72,17 @@ public class McnsaNotes {
         log.info("Starting listeners");
         Sponge.getEventManager().registerListeners(plugin, new PlayerListener());
 
+        //Save all stats to DB every 5 mins
+        Task.Builder taskBuilder = Task.builder();
+        taskBuilder.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    log.info("saving stats to DB");
+                                    StatsManager.saveChanged();
+                                }
+                            }
+        ).interval(10, TimeUnit.MINUTES)
+        .submit(this);
     }
 
     @Listener
