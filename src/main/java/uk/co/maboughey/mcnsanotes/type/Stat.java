@@ -1,5 +1,7 @@
 package uk.co.maboughey.mcnsanotes.type;
 
+import uk.co.maboughey.mcnsanotes.database.DBuuid;
+
 import java.util.Date;
 
 public class Stat {
@@ -20,10 +22,12 @@ public class Stat {
     public Stat(String uuid) {
         loginTime = System.currentTimeMillis();
         this.uuid = uuid;
-        this.numJoins++;
     }
     public Stat() {}
 
+    public String getName() {
+        return DBuuid.getNameFromUUID(this.uuid);
+    }
     public String getTimeOnServer()
     {
         long currentPlayTime = 0L;

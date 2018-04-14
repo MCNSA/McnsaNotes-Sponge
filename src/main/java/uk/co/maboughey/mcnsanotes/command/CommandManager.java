@@ -19,6 +19,7 @@ public class CommandManager {
         deleteCommand();
         newNoteCommand();
         recentNotesCommand();
+        viewStatsCommand();
     }
 
     public void reloadCommand() {
@@ -80,5 +81,18 @@ public class CommandManager {
                 .build();
 
         Sponge.getCommandManager().register(this.plugin, recentNotesCommand, "recentnotes", "rn");
+    }
+
+    public void viewStatsCommand() {
+        CommandSpec newStatsCommand = CommandSpec.builder()
+                .description(Text.of("View your stats"))
+                .permission("mcnsanotes.stats.own")
+                .executor(new StatsCommand())
+                .arguments(
+                        GenericArguments.optional(new PlayerNameArgument(Text.of("player")))
+                )
+                .build();
+
+        Sponge.getCommandManager().register(this.plugin, newStatsCommand, "stats", "viewstats");
     }
 }

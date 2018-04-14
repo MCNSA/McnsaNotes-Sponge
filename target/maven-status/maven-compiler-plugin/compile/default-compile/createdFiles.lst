@@ -7,6 +7,7 @@ uk\co\maboughey\mcnsanotes\database\DatabaseManager.class
 uk\co\maboughey\mcnsanotes\command\DeleteCommand.class
 uk\co\maboughey\mcnsanotes\database\DBuuid.class
 uk\co\maboughey\mcnsanotes\type\Stat.class
+uk\co\maboughey\mcnsanotes\command\StatsCommand.class
 uk\co\maboughey\mcnsanotes\utils\Log.class
 uk\co\maboughey\mcnsanotes\utils\StatsManager.class
 uk\co\maboughey\mcnsanotes\database\DBStats.class

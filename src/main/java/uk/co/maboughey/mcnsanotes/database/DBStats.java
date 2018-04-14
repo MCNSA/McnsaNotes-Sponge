@@ -32,7 +32,6 @@ public class DBStats {
                 return stat;
             }
             else {
-                McnsaNotes.log.info("No Stat found");
                 return null;
             }
         }
