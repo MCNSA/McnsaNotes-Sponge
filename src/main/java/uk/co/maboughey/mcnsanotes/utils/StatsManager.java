@@ -37,6 +37,8 @@ public class StatsManager {
             if (stats.get(i).changed) {
                 //update time played
                 stats.get(i).timeOnServer += (System.currentTimeMillis() / 1000) - stats.get(i).loginTime;
+                //Reset logintime
+                stats.get(i).loginTime = System.currentTimeMillis() / 1000;
                 DBStats.saveStat(stats.get(i));
                 stats.get(i).changed = false;
             }
