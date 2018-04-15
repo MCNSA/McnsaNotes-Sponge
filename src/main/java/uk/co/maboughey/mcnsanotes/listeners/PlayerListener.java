@@ -34,7 +34,7 @@ public class PlayerListener {
             DBStats.saveNewStat(stat);
         }
         //Set login time
-        stat.loginTime = System.currentTimeMillis();
+        stat.loginTime = System.currentTimeMillis() / 1000;
         //add to number of joins
         stat.numJoins += 1;
 

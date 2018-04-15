@@ -25,7 +25,7 @@ public class StatsManager {
         Stat stat = getStat(uuid);
         if (stat != null) {
             //update time played
-            stat.timeOnServer += System.currentTimeMillis() - stat.loginTime;
+            stat.timeOnServer += (System.currentTimeMillis() / 1000) - stat.loginTime;
             //save to DB
             DBStats.saveStat(stat);
             //remove from tracking
@@ -36,7 +36,7 @@ public class StatsManager {
         for (int i = 0; i < stats.size(); i++) {
             if (stats.get(i).changed) {
                 //update time played
-                stats.get(i).timeOnServer += System.currentTimeMillis() - stats.get(i).loginTime;
+                stats.get(i).timeOnServer += (System.currentTimeMillis() / 1000) - stats.get(i).loginTime;
                 DBStats.saveStat(stats.get(i));
                 stats.get(i).changed = false;
             }

@@ -20,7 +20,7 @@ public class Stat {
     public long loginTime;
 
     public Stat(String uuid) {
-        loginTime = System.currentTimeMillis();
+        loginTime = System.currentTimeMillis() / 1000;
         this.uuid = uuid;
     }
     public Stat() {}
@@ -31,20 +31,19 @@ public class Stat {
     public String getTimeOnServer()
     {
         long currentPlayTime = 0L;
-        if (this.loginTime != 0L)
+        if (this.loginTime != 0)
         {
-            long currenttime = System.currentTimeMillis();
+            long currenttime = System.currentTimeMillis() / 1000;
             currentPlayTime = this.timeOnServer + (currenttime - this.loginTime);
         }
         else
         {
             currentPlayTime = this.timeOnServer;
         }
-        currentPlayTime /= 1000L;
-        long days = currentPlayTime / 86400L;
-        long hours = currentPlayTime / 3600L - days * 24L;
-        long minutes = currentPlayTime / 60L - days * 1440L - hours * 60L;
-        long seconds = currentPlayTime % 60L;
+        long days = Math.floorDiv(currentPlayTime, 86400);
+        long hours = Math.floorDiv(currentPlayTime - (days * 86400) , 3600);
+        long minutes = Math.floorDiv(currentPlayTime - ((hours * 3600) + (days * 86400)) , 60);
+        long seconds = currentPlayTime - ((minutes * 60) + (hours * 3600) + (days * 86400));
         String string = days + " Days " + hours + " Hours " + minutes + " Minutes " + seconds + " Seconds";
         return string;
     }
