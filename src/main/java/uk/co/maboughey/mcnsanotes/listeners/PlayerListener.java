@@ -6,6 +6,7 @@ import org.spongepowered.api.event.block.ChangeBlockEvent;
 import org.spongepowered.api.event.entity.DestructEntityEvent;
 import org.spongepowered.api.event.entity.living.humanoid.player.KickPlayerEvent;
 import org.spongepowered.api.event.filter.Getter;
+import org.spongepowered.api.event.message.MessageChannelEvent;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 import uk.co.maboughey.mcnsanotes.McnsaNotes;
 import uk.co.maboughey.mcnsanotes.database.DBStats;
@@ -46,9 +47,7 @@ public class PlayerListener {
     public void onPlayerQuit(ClientConnectionEvent.Disconnect event) {
         String uuid = event.getTargetEntity().getUniqueId().toString();
         McnsaNotes.StatsManager.removeStat(uuid);
-
     }
-
     @Listener
     public void onPlayerKick(KickPlayerEvent event) {
         //Dooes not currently work

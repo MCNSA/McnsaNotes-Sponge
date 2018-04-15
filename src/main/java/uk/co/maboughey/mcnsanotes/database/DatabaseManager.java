@@ -31,8 +31,12 @@ public class DatabaseManager {
             McnsaNotes.log.info("Connection to Database Established");
 
         }
-        catch (Exception e){
+        catch (SQLException e){
+            McnsaNotes.log.error("Database Error connecting to databse: "+ e.getMessage());
             connect = null;
+        }
+        catch (ClassNotFoundException e) {
+            McnsaNotes.log.error("Could not find mysql connector");
         }
     }
 
@@ -89,16 +93,16 @@ public class DatabaseManager {
 
             preparedStatement = connect.prepareStatement(
                     "CREATE TABLE IF NOT EXISTS taggedPlayers (" +
-                            "id int(6) NOT NULL AUTO_INCREMENT," +
-                            "uuid varchar(50) NOT NULL," +
-                            "noter_uuid varchar(50)," +
-                            "reason TEXT NOT NULL," +
+                            "id int(6) NOT NULL AUTO_INCREMENT, " +
+                            "uuid varchar(50) NOT NULL, " +
+                            "noter_uuid varchar(50), " +
+                            "reason TEXT NOT NULL, " +
                             "PRIMARY KEY (id))"
             );
             preparedStatement.executeUpdate();
         }
-        catch(Exception e) {
-            McnsaNotes.log.error("Database Exception, Disabling plugin. Message: "+e.getLocalizedMessage());
+        catch(SQLException e) {
+            McnsaNotes.log.error("Database Exception, Disabling plugin. Message: "+e.getMessage());
             McnsaNotes.isEnabled = false;
         }
     }
