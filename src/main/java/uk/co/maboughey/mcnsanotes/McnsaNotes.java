@@ -7,6 +7,7 @@ import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
+import org.spongepowered.api.event.game.state.GameStoppedServerEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.scheduler.Task;
@@ -90,4 +91,10 @@ public class McnsaNotes {
         logger.info("Welcome to MCNSANotes!");
     }
 
+    @Listener
+    public void onServerStop(GameStoppedServerEvent event) {
+        //Save all stats that are currently loaded
+        StatsManager.saveChanged();
+        log.info("Saving stats");
+    }
 }
