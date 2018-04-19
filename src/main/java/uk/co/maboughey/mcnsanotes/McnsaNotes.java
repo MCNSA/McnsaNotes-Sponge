@@ -25,8 +25,6 @@ import java.util.concurrent.TimeUnit;
 
 @Plugin(id = "mcnsanotes", name = "MCNSA Notes", version = "1.0-Sponge")
 public class McnsaNotes {
-    @Inject
-    private Logger logger;
 
     @Inject
     @ConfigDir(sharedRoot = false)
@@ -48,8 +46,8 @@ public class McnsaNotes {
 
     @Listener
     public void preInit(GamePreInitializationEvent event){
-        log = new Log(logger);
-        logger.info("Loading Configuration");
+        log = new Log();
+        log.info("Loading Configuration");
         config = new Configuration(configDir);
 
         //Support for local copy of knownUsernames
@@ -78,7 +76,7 @@ public class McnsaNotes {
         taskBuilder.execute(new Runnable() {
                                 @Override
                                 public void run() {
-                                    log.info("saving stats to DB");
+                                    log.info("Saving stats to DB");
                                     StatsManager.saveChanged();
                                 }
                             }
@@ -88,7 +86,7 @@ public class McnsaNotes {
 
     @Listener
     public void onServerStart(GameStartedServerEvent event){
-        logger.info("Welcome to MCNSANotes!");
+        log.info("Welcome to MCNSANotes!");
     }
 
     @Listener
