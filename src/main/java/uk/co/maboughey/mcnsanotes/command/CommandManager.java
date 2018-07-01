@@ -25,7 +25,7 @@ public class CommandManager {
     public void reloadCommand() {
         CommandSpec reloadCommand = CommandSpec.builder()
                 .description(Text.of("Reload the configuration for MCNSA Notes"))
-                .permission("mcnsanotes.reload")
+                .permission("mcnsanotes.mod.reload")
                 .executor(new ReloadCommand())
                 .build();
 
@@ -34,7 +34,7 @@ public class CommandManager {
     public void notesCommand() {
         CommandSpec notesCommand = CommandSpec.builder()
                 .description(Text.of("View notes about a player"))
-                .permission("mcnsanotes.viewnotes")
+                .permission("mcnsanotes.mod")
                 .executor(new NotesCommand())
                 .arguments(
                         GenericArguments.onlyOne(new PlayerNameArgument(Text.of("player"))),
@@ -47,7 +47,7 @@ public class CommandManager {
     public void deleteCommand() {
         CommandSpec deleteCommand = CommandSpec.builder()
                 .description(Text.of("Delete a player's note"))
-                .permission("mcnsanotes.delete")
+                .permission("mcnsanotes.mod.delete")
                 .executor(new DeleteCommand())
                 .arguments(
                         GenericArguments.onlyOne(GenericArguments.string(Text.of("id")))
@@ -60,7 +60,7 @@ public class CommandManager {
     public void newNoteCommand() {
         CommandSpec newNoteCommand = CommandSpec.builder()
                 .description(Text.of("Write a note for a player"))
-                .permission("mcnsanotes.note")
+                .permission("mcnsanotes.mod")
                 .executor(new NoteCommand())
                 .arguments(
                         GenericArguments.onlyOne(new PlayerNameArgument(Text.of("player"))),
@@ -73,7 +73,7 @@ public class CommandManager {
     public void recentNotesCommand() {
         CommandSpec recentNotesCommand = CommandSpec.builder()
                 .description(Text.of("View all recent notes written"))
-                .permission("mcnsanotes.viewnotes")
+                .permission("mcnsanotes.mod")
                 .executor(new RecentNotesCommand())
                 .arguments(
                         GenericArguments.optional(GenericArguments.integer(Text.of("page")))
@@ -86,7 +86,7 @@ public class CommandManager {
     public void viewStatsCommand() {
         CommandSpec newStatsCommand = CommandSpec.builder()
                 .description(Text.of("View your stats"))
-                .permission("mcnsanotes.stats.own")
+                .permission("mcnsanotes.player")
                 .executor(new StatsCommand())
                 .arguments(
                         GenericArguments.optional(new PlayerNameArgument(Text.of("player")))

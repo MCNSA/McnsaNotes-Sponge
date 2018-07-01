@@ -32,7 +32,7 @@ public class StatsCommand implements CommandExecutor {
         //Check if person is trying to view someone else
         if (args.hasAny("player")) {
             //Check permission, if no permission just ignore it
-            if (src.hasPermission("mcnsanotes.stats.other")){
+            if (src.hasPermission("mcnsanotes.mod")){
                 //We have permission
                 String other = (String) args.getOne("player").get();
                 uuid = DBuuid.getUUID(other);
